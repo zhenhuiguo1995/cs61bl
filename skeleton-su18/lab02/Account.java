@@ -5,10 +5,17 @@
 public class Account {
 
     public int balance;
+    public Account parentAccount;
 
     /** Initialize an account with the given BALANCE. */
     public Account(int balance) {
         this.balance = balance;
+        this.parentAccount = null;
+    }
+
+    public Account(int balance, Account parentAccount){
+        this.balance = balance;
+        this.parentAccount = parentAccount;
     }
 
     /** Deposits AMOUNT into the current account. */
@@ -24,15 +31,37 @@ public class Account {
      * Subtract AMOUNT from the account if possible. If subtracting AMOUNT
      * would leave a negative balance, print an error message and leave the
      * balance unchanged.
-     */
-    public void withdraw(int amount) {
+     */ 
+    public boolean withdraw(int amount) {
         // TODO
-        if (amount < 0) {
+        int total = 0;
+        Account temp = this;
+        while(temp.parentAccount != null){
+            total += temp.balance;
+            temp = temp.parentAccount;
+        }
+
+        total += temp.balance;
+        if(amount < 0){
             System.out.println("Cannot withdraw negative amount.");
-        } else if (balance < amount) {
-            System.out.println("Insufficient funds");
-        } else {
-            balance -= amount;
+            return false;
+        }else if (this.balance < amount) {
+            if(this.parentAccount != null){
+                if(total >= amount){
+                    this.parentAccount.withdraw(amount - this.balance);
+                    this.balance = 0;
+                    return true;
+                }else{
+                    System.out.println("Insufficient funds");
+                    return false;
+                }
+            }else{
+                System.out.println("Insufficient funds");
+                return false;
+            }
+        }else{
+            this.balance -= amount;
+            return true;
         }
     }
 
@@ -41,6 +70,22 @@ public class Account {
      * and depositing it into this account.
      */
     public void merge(Account other) {
-        // TODO
+        this.balance += other.balance;
+        other.balance = 0;
     }
+
+    /** this section is for testing purposes only 
+    public static void main(String[] args){
+        Account linda = new Account(1000);
+        Account kathy = new Account(500, linda);
+        Account megan = new Account(100, kathy);
+        for(int i = 1; i < 10; i ++){
+            int temp = i * 100;
+            megan.withdraw(temp);
+            System.out.println("megan's balance: " + megan.balance);
+            System.out.println("kathy's balance: " + kathy.balance);
+            System.out.println("linda's balance: " + linda.balance);
+        }
+    }
+    */
 }
