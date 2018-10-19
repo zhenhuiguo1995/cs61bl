@@ -21,7 +21,8 @@ public class DateConverter {
         month = 1;
         daysInMonth = 31;
         while (dayOfYear > daysInMonth) {
-            // TODO: Here is one place to put assignment statements.
+            dayOfYear -= daysInMonth;
+            month += 1;
             if (month == 2) {
                 daysInMonth = 28;
             } else if (month == 4 || month == 6 || month == 9 || month == 11) {
@@ -29,7 +30,6 @@ public class DateConverter {
             } else {
                 daysInMonth = 31;
             }
-            // TODO: Here is another possible place to put assignment statements.
         }
         dateInMonth = dayOfYear;
         System.out.println(month + "/" + dateInMonth);

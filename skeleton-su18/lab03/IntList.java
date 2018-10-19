@@ -35,13 +35,26 @@ public class IntList {
 
     /** Returns [position]th value in this list. */
     public int get(int position) {
-        // TODO: YOUR CODE HERE
-        return 0;
+        IntList p = this;
+        while (position > 0){
+            if (p.rest != null){
+                p = p.rest;
+            } else{
+                System.out.println("List index out of range!");
+                return 0;
+            }
+            position -= 1;
+        }
+        return p.first;
     }
 
     /** Returns the string representation of the list. */
     public String toString() {
-        // TODO: YOUR CODE HERE
+        IntList p = this;
+        while (p != null){
+            System.out.print(p.first + " ");
+            p = p.rest;
+        }
         return null;
     }
 
@@ -49,6 +62,15 @@ public class IntList {
     public boolean equals(Object o) {
         IntList other = (IntList) o;
         // TODO: YOUR CODE HERE
-        return false;
+        IntList p = this;
+        while (p != null && other != null){
+            if (p.first != other.first){
+                return false;
+            } else{
+                p = p.rest;
+                other = other.rest;
+            }
+        }
+        return true;
     }
 }

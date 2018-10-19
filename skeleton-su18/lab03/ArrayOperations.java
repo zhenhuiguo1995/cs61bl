@@ -7,8 +7,14 @@ public class ArrayOperations {
     public static void delete(int[] values, int pos) {
         if (pos < 0 || pos >= values.length) {
             return;
+        } else {
+            int k = pos;
+            while (k < values.length - 1){
+                values[k] = values[k + 1];
+                k += 1;
+            }
+            values[k] = 0;
         }
-        // TODO: YOUR CODE HERE
     }
 
     /**
@@ -19,7 +25,17 @@ public class ArrayOperations {
     public static void insert(int[] values, int pos, int newInt) {
         if (pos < 0 || pos >= values.length) {
             return;
+        } else {
+            int k = pos;
+            int pre = newInt;
+            int temp = 0;
+            while (k < values.length - 1){
+                temp = values[k];
+                values[k] = pre;
+                pre = temp;
+                k += 1;
+            }
+            values[k] = pre;
         }
-        // TODO: YOUR CODE HERE
     }
 }
