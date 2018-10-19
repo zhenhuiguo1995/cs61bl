@@ -33,7 +33,6 @@ public class Account {
      * balance unchanged.
      */ 
     public boolean withdraw(int amount) {
-        // TODO
         int total = 0;
         Account temp = this;
         while(temp.parentAccount != null){
@@ -74,7 +73,6 @@ public class Account {
         other.balance = 0;
     }
 
-    /** this section is for testing purposes only 
     public static void main(String[] args){
         Account linda = new Account(1000);
         Account kathy = new Account(500, linda);
@@ -87,5 +85,5 @@ public class Account {
             System.out.println("linda's balance: " + linda.balance);
         }
     }
-    */
+
 }
