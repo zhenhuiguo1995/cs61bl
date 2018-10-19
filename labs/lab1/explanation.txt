@@ -1,4 +1,0 @@
-this serves as an explanantion for passing the stupid autograder, which is the worst program I have ever seen
-in a life time.
-
-The gradescope is the most stupid design i have ever seen in a life time, and i am seriously considering drop this course because there is no way that i can tolerate its design.
