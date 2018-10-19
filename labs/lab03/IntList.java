@@ -36,6 +36,10 @@ public class IntList {
     /** Returns [position]th value in this list. */
     public int get(int position) {
         IntList p = this;
+        if (position < 0){
+            System.out.println("List index must be a positive number ");
+            return 0;
+        }
         while (position > 0){
             if (p.rest != null){
                 p = p.rest;
@@ -73,4 +77,20 @@ public class IntList {
         }
         return true;
     }
+
+    /** this part is for testing purposes only
+    public static void main(String[] args){
+        IntList A = new IntList(10, null);
+        A.rest = new IntList(2, null);
+        A.rest.rest = new IntList(3, null);
+        System.out.println( A.get(5));
+
+        IntList B = new IntList(10, null);
+        B.rest = new IntList(2, null);
+        B.rest.rest = new IntList(3, null);
+        B.rest.first = 8;
+        System.out.println(B.rest.first + " " + A.rest.first);
+        System.out.println( A.equals(B));
+    }
+    */
 }
