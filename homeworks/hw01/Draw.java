@@ -1,9 +1,17 @@
+/**
+ * @author Alfred
+ * Draw a Triangle.
+ */
 public class Draw {
-    public static void DrawTriangle(int n){
+    /**
+     * Draw a triangle.
+     * @param n ** A user-defined argument
+     */
+    public static void drawTriangle(int n) {
         int col = 0;
-        while (col < n){
+        while (col < n) {
             int i = 0;
-            while (i <= col){
+            while (i <= col) {
                 System.out.print("*");
                 i += 1;
             }
@@ -12,8 +20,11 @@ public class Draw {
         }
     }
 
-
+    /**
+     * Invokes the DrawTriangle method and draws a triangle.
+     * @param args ** A command line argument.
+     */
     public static void main(String[] args) {
-        DrawTriangle(8);
+        drawTriangle(8);
     }
 }

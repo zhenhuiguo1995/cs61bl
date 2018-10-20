@@ -1,9 +1,18 @@
+/**
+ * @author Alfred
+ * Exercises on the usage of break and continue.
+ */
 public class BreakContinue {
+    /**
+     *
+     * @param a ** An int array to add.
+     * @param n ** The number of array elements to add.
+     */
     public static void windowPosSum(int[] a, int n) {
-        for(int i = 0; i < a.length; i ++){
-            if(a[i] < 0){
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] < 0) {
                 continue;
-            }else {
+            } else {
                 int j = 1;
                 while ((j < (n + 1)) && (i + j) < a.length) {
                     a[i] += a[i + j];
@@ -13,12 +22,14 @@ public class BreakContinue {
         }
     }
 
+    /**
+     * The main method, which executes the windowPosSum method.
+     * @param args ** The command line arguments.
+     */
     public static void main(String[] args) {
         int[] a = {1, 2, -3, 4, 5, 4};
         int n = 3;
         windowPosSum(a, n);
-
-        // Should print 4, 8, -3, 13, 9, 4
         System.out.println(java.util.Arrays.toString(a));
     }
 }
