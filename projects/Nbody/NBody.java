@@ -1,5 +1,11 @@
 public class NBody{
 
+    public static int readNumOfPlanets(String string){
+        In in = new In(string);
+        int numberOfPlanets = in.readInt();
+        return numberOfPlanets;
+    }
+
     public static double readRadius(String string){
         In in = new In(string);
         int numberOfPlanets = in.readInt();
@@ -39,13 +45,42 @@ public class NBody{
             String name = args[2];
             Planet[] allPlanet =  NBody.readPlanets(name);
             double radius = NBody.readRadius(name);
+            int numerOfPlanets = NBody.readNumOfPlanets(name);
 
-            //StdDraw.enableDoubleBuffering();
+            StdDraw.enableDoubleBuffering();
             StdDraw.setScale(-radius, radius);
-            StdDraw.picture(0, 0, "image/starfield.jpg");
+            //StdDraw.picture(0, 0, "images/starfield.jpg");
 
             for(Planet P: allPlanet) {
                 P.draw();
+            }
+
+            double time = 0;
+            while(time < T){
+                double[] xForces = new double[numerOfPlanets];
+                double[] yForces = new double[numerOfPlanets];
+                for(int i= 0 ; i < numerOfPlanets; i ++){
+                    xForces[i] = allPlanet[i].calcNetForceExertedByX(allPlanet);
+                    yForces[i] = allPlanet[i].calcNetForceExertedByY(allPlanet);
+                }
+                for(int i = 0 ; i < numerOfPlanets; i ++){
+                    allPlanet[i].update(dt, xForces[i], yForces[i]);
+                }
+                StdDraw.picture(0, 0 ,"images/starfield.jpg");
+                for(Planet P: allPlanet){
+                    P.draw();
+                }
+                StdDraw.show();
+                StdDraw.pause(10);
+                time += dt;
+            }
+
+            StdOut.printf("%d\n", allPlanet.length);
+            StdOut.printf("%.2e\n", radius);
+            for(int i = 0; i < allPlanet.length; i ++){
+                StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
+                        allPlanet[i].xxPos, allPlanet[i].yyPos, allPlanet[i].xxVel,
+                        allPlanet[i].yyVel, allPlanet[i].mass, allPlanet[i].imgFileName);
             }
 
         }
