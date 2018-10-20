@@ -1,22 +1,29 @@
-/** A point in 2D space. */
+/** A point in 2D space.
+ * @author Alfred
+ * */
 public class Point {
-
+    /**The x coordinates of a point object.*/
     public double x;
+    /**The Y coordinates of a point object.*/
     public double y;
 
-    /** A constructor that returns a point at the origin. */
+    /**A constructor that returns a point at the origin. */
     Point() {
         this.x = 0;
         this.y = 0;
     }
 
-    /** A constructor that takes in the x, y coordinate of a point. */
-    Point(double x, double y) {
-        this.x = x;
-        this.y = y;
+    /**
+     * @param xx ** The x coordinates of a point.
+     * @param yy ** The y coordinates of a point.
+     * A constructor that takes in the x, y coordinate of a point. */
+    Point(double xx, double yy) {
+        this.x = xx;
+        this.y = yy;
     }
 
-    /** A constructor that creates a point with the same x and y values. */
+    /**@param other ** A point object.
+     * A constructor that creates a point with the same x and y values. */
     Point(Point other) {
         this.x = other.x;
         this.y = other.y;
