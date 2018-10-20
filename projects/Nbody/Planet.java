@@ -1,15 +1,35 @@
-import java.lang.Math;
-
-public class Planet{
+/**
+ * @author Alfred
+ * Simulates a planet by calculating the gravational force
+ * and velocity.
+ */
+public class Planet {
+    /** The x coordinate of the planet object.*/
     public double xxPos;
+    /** The y coordinate of the planet object.*/
     public double yyPos;
+    /** The x velocity of the planet object.*/
     public double xxVel;
+    /** The y velocity of the planet object.*/
     public double yyVel;
+    /** The mass of the planet object.*/
     public double mass;
+    /** The name of the planet object.*/
     public String imgFileName;
+    /** The gravitational constant in physics.*/
     public static final double G = 6.67e-11;
 
-    public Planet(double xP, double yP, double xV, double yV, double m, String img){
+    /**
+     * A planet Constructor.
+     * @param xP ** the x coordinates.
+     * @param yP ** the y coordinates.
+     * @param xV ** the velocity at the x axis.
+     * @param yV ** the velocity at the  axis.
+     * @param m ** the mass of the planet object.
+     * @param img ** the images of the planet object
+     */
+    public Planet(double xP, double yP, double xV,
+                  double yV, double m, String img) {
         this.xxPos = xP;
         this.yyPos = yP;
         this.xxVel = xV;
@@ -18,7 +38,11 @@ public class Planet{
         this.imgFileName = img;
     }
 
-    public Planet(Planet P){
+    /**
+     * A planet constructor.
+     * @param P ** A planet object.
+     */
+    public Planet(Planet P) {
         this.xxPos = P.xxPos;
         this.yyPos = P.yyPos;
         this.xxVel = P.xxVel;
@@ -27,63 +51,108 @@ public class Planet{
         this.imgFileName = P.imgFileName;
     }
 
-    public double calcDistance(Planet P){
-        double Dist;
-        double xDist = this.xxPos - P.xxPos;
-        double yDist = this.yyPos - P.yyPos;
-        Dist = Math.sqrt(xDist * xDist + yDist * yDist);
-        return Dist;
+    /**
+     * Calculates the distance between two planets objects.
+     * @param P ** A planet object.
+     * @return ** a double value representing the distance.
+     */
+    public double calcDistance(Planet P) {
+        double dist;
+        double xdist = this.xxPos - P.xxPos;
+        double ydist = this.yyPos - P.yyPos;
+        dist = Math.sqrt(xdist * xdist + ydist * ydist);
+        return dist;
     }
 
-    public double calcForceExertedBy(Planet P){
-        double Dist = this.calcDistance(P);
-        double Force = G * this.mass * P.mass / (Dist * Dist);
-        return Force;
+    /**
+     * Calculates the gravity between two planet objects.
+     * @param P ** a planet object.
+     * @return  ** a double value representing the gravity.
+     */
+    public double calcForceExertedBy(Planet P) {
+        double dist = this.calcDistance(P);
+        double force = G * this.mass * P.mass / (dist * dist);
+        return force;
     }
 
-    public double calcForceExertedByX(Planet P){
+    /**
+     * Calculates the gravity between two planet objects
+     * in the x axis.
+     * @param P ** a planet object.
+     * @return ** a double value representing the force
+     */
+    public double calcForceExertedByX(Planet P) {
         double xDist = P.xxPos - this.xxPos;
         double xForce = calcForceExertedBy(P) * xDist / calcDistance(P);
         return xForce;
     }
 
-    public double calcForceExertedByY(Planet P){
+    /**
+     * Calculates the gravity between two planet objects.
+     * in the y axis
+     * @param P ** a planet object.
+     * @return ** a double value representing the force.
+     */
+    public double calcForceExertedByY(Planet P) {
         double yDist = P.yyPos - this.yyPos;
         double yForce = calcForceExertedBy(P) * yDist / calcDistance(P);
         return yForce;
     }
 
-    public double calcNetForceExertedByX(Planet[] allPlanets){
+    /**
+     * Calculates the net force in the x axis
+     * between a series of planet objects.
+     * @param allPlanets ** an array of planet objects.
+     * @return ** a double value representing the net force
+     * in the x axis.
+     */
+    public double calcNetForceExertedByX(Planet[] allPlanets) {
         double xNetForce = 0;
-        for (Planet P: allPlanets){
-            if (! this.equals(P)){
+        for (Planet P: allPlanets) {
+            if (!this.equals(P)) {
                 xNetForce += this.calcForceExertedByX(P);
             }
         }
         return xNetForce;
     }
 
-    public double calcNetForceExertedByY(Planet[] allPlanets){
+    /**
+     * Calculates the net force in the y axis
+     * between a series of planet objects.
+     * @param allPlanets * an array of planet objects.
+     * @return ** a double value representing the net force
+     * in the y axis
+     */
+    public double calcNetForceExertedByY(Planet[] allPlanets) {
         double yNetForce = 0;
-        for (Planet P: allPlanets){
-            if (! this.equals(P)){
+        for (Planet P: allPlanets) {
+            if (!this.equals(P)) {
                 yNetForce += this.calcForceExertedByY(P);
             }
         }
         return yNetForce;
     }
 
-    public void update(double dt, double fX, double fY){
-        double aX = fX/this.mass;
-        double aY = fY/this.mass;
+    /**
+     * Updates the position and velocity of a planet object.
+     * @param dt ** the time interval.
+     * @param fX ** the net forces at the x axis.
+     * @param fY ** the net forces at the y axis.
+     */
+    public void update(double dt, double fX, double fY) {
+        double aX = fX / this.mass;
+        double aY = fY / this.mass;
         this.xxVel += dt * aX;
         this.yyVel += dt * aY;
         this.xxPos += this.xxVel * dt;
         this.yyPos += this.yyVel * dt;
     }
 
-    public void draw(){
+    /**
+     * Draw the planet object at its current location.
+     */
+    public void draw() {
         StdDraw.picture(this.xxPos, this.yyPos, "images/" + this.imgFileName);
     }
-
 }
+
