@@ -1,7 +1,13 @@
 import java.io.*;
 
+/**
+ * @author Alfred
+ * A date convert which converts an input number
+ * to a date in a year.
+ */
 public class DateConverter {
     /**
+     * @param args ** a cmmand line argument.
      * Given a day number in 2017, an integer between 1 and 365, as a
      * command-line argument, prints the date in month/day format.
      *

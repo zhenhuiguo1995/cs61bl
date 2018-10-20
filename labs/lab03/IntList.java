@@ -1,17 +1,28 @@
 /**
+ * @author Alfred
  * A data structure to represent a Linked List of Integers.
  * Each IntList represents one node in the overall Linked List.
  */
 public class IntList {
+    /**The first element of the linked list.*/
     public int first;
+    /**The second element of the linked list.*/
     public IntList rest;
 
+    /**
+     * A Linked list data structure.
+     * @param f ** the first element.
+     * @param r ** a referene type pointing to the next
+     * element of the list.
+     */
     public IntList(int f, IntList r) {
         first = f;
         rest = r;
     }
 
-    /** Returns an IntList consisting of the given values. */
+    /** Returns an IntList consisting of the given values.
+     * @param values ** an int variable.
+     * */
     public static IntList of(int... values) {
         if (values.length == 0) {
             return null;
@@ -25,7 +36,7 @@ public class IntList {
         return front;
     }
 
-    /** Returns the size of the list. */
+    /**@return ** returns the size of the list. */
     public int size() {
         if (rest == null) {
             return 1;
@@ -33,17 +44,19 @@ public class IntList {
         return 1 + rest.size();
     }
 
-    /** Returns [position]th value in this list. */
+    /** @return [position]th value in this list.
+     * @param position ** the position of the item
+     * */
     public int get(int position) {
         IntList p = this;
-        if (position < 0){
+        if (position < 0) {
             System.out.println("List index must be a positive number ");
             return 0;
         }
-        while (position > 0){
-            if (p.rest != null){
+        while (position > 0) {
+            if (p.rest != null) {
                 p = p.rest;
-            } else{
+            } else {
                 System.out.println("List index out of range!");
                 return 0;
             }
@@ -52,25 +65,28 @@ public class IntList {
         return p.first;
     }
 
-    /** Returns the string representation of the list. */
+    /**
+     * @return the string representation of the list. */
     public String toString() {
         IntList p = this;
-        while (p != null){
+        while (p != null) {
             System.out.print(p.first + " ");
             p = p.rest;
         }
         return null;
     }
 
-    /** Returns whether this and the given list or object are equal. */
+    /**Return a bool value indicating this and the given list is equal
+     * or not.
+     * @param o ** an object
+     * @return whether this and the given list or object are equal. */
     public boolean equals(Object o) {
         IntList other = (IntList) o;
-        // TODO: YOUR CODE HERE
         IntList p = this;
-        while (p != null && other != null){
-            if (p.first != other.first){
+        while (p != null && other != null) {
+            if (p.first != other.first) {
                 return false;
-            } else{
+            } else {
                 p = p.rest;
                 other = other.rest;
             }
