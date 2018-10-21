@@ -70,7 +70,7 @@ public class IntListTest {
      * Keep in mind that dcatenate(A, B) is NOT required to leave A untouched.
      * Anything can happen to A.
      */
-
+    
     @Test
     public void testCatenate() {
         IntList A = IntList.of(1, 2, 3);

@@ -1,14 +1,25 @@
 /**
+ * @author Alfred
  * Exercise for learning how the debug, breakpoint, and step-into features
  * work.
  */
 public class DebugExercise1 {
+    /**
+     * Do division between two integers.
+     * @param top ** The divisor
+     * @param bottom ** The dividend.
+     * @return ** the result
+     */
     public static int divideThenRound(int top, int bottom) {
         int quotient = top / bottom;
         int result = Math.round(quotient);
         return result;
     }
 
+    /**
+     * Test and see the results.
+     * @param args ** command line arguments.
+     */
     public static void main(String[] args) {
         int t = 10;
         int b = 2;
