@@ -20,6 +20,19 @@ public class Planet {
     public static final double G = 6.67e-11;
 
     /**
+     * If you set xxPos as a private method, then you need
+     * a get and set method to access and modify xxPos
+     * outside this class.
+    public double getXxPos() {
+        return xxPos;
+    }
+
+    public void setXxPos(double xxPos) {
+        this.xxPos = xxPos;
+    }
+     */
+
+    /**
      * A planet Constructor.
      * @param xP ** the x coordinates.
      * @param yP ** the y coordinates.
