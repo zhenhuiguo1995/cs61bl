@@ -1,4 +1,6 @@
- /**
+import java.lang.reflect.Array;
+
+/**
   * An SLList is a list of integers, which hides the terrible truth of the
   * nakedness within.
   */
@@ -11,6 +13,26 @@ public class SLList {
             item = i;
             next = n;
         }
+
+        @Override
+        public String toString() {
+            return "IntNode{" +
+                    "item=" + item +
+                    ", next=" + next +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            IntNode intNode = (IntNode) o;
+
+            if (item != intNode.item) return false;
+            return next != null ? next.equals(intNode.next) : intNode.next == null;
+        }
+
     }
 
     /* The first item (if it exists) is at sentinel.next. */
@@ -49,7 +71,27 @@ public class SLList {
         size += 1;
     }
 
-    /** Returns the first item in the list. */
+     @Override
+     public String toString() {
+         return "SLList{" +
+                 "sentinel=" + sentinel +
+                 ", size=" + size +
+                 '}';
+     }
+
+     @Override
+     public boolean equals(Object o) {
+         if (this == o) return true;
+         if (o == null || getClass() != o.getClass()) return false;
+
+         SLList slList = (SLList) o;
+
+         if (size != slList.size) return false;
+         return sentinel != null ? sentinel.equals(slList.sentinel) : slList.sentinel == null;
+     }
+
+
+     /** Returns the first item in the list. */
     public int getFirst() {
         return sentinel.next.item;
     }
@@ -76,11 +118,36 @@ public class SLList {
 
     /** Adds x to the list at the specified index. */
     public void add(int index, int x) {
-        // TODO
+        IntNode p = sentinel;
+        while (index > 0 && p.next != null) {
+            p = p.next;
+            index -= 1;
+        }
+        IntNode res = p.next;
+        p.next = new IntNode(x, null);
+        p = p.next;
+        p.next = res;
+        size += 1;
     }
 
     /** Returns the reverse of this list. This method is destructive. */
     public void reverse() {
-        // TODO
+        if (size <= 1) {
+            return ;
+        } else {
+            IntNode p = sentinel.next;
+            int[] a = new int[size];
+            int i = 0;
+            while (p != null) {
+                a[i] = p.item;
+                p = p.next;
+                i += 1;
+            }
+            p = sentinel;
+            for (int j = a.length - 1; j >= 0; j--) {
+                p.next = new IntNode(a[j], null);
+                p = p.next;
+            }
+        }
     }
 }

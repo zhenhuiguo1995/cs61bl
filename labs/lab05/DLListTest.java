@@ -32,5 +32,9 @@ public class DLListTest {
         l.remove(2);
         assertEquals(DLList.of(4, 1), l);
         assertEquals(2, l.size());
+
+        l.remove(1);
+        assertEquals(DLList.of(4), l);
+        assertEquals(1, l.size());
     }
 }

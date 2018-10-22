@@ -1,4 +1,5 @@
  /**
+  * @author Alfred
   * A DLList is a list of integers. Like SLList, it also hides the terrible
   * truth of the nakedness within, but with a few additional optimizations.
   */
@@ -26,7 +27,11 @@ public class DLList<BleepBlorp> {
         sentinel.prev = sentinel;
     }
 
-    /** Returns a DLList consisting of the given values. */
+     /**
+      * @param values ** values to put in the list
+      * @param <BleepBlorp> ** a data type
+      * @return ** a list consisting of the values
+      */
     public static <BleepBlorp> DLList of(BleepBlorp... values) {
         DLList<BleepBlorp> list = new DLList<>();
         for (BleepBlorp value : values) {
@@ -58,12 +63,27 @@ public class DLList<BleepBlorp> {
 
     /** Adds item to the list at the specified index. */
     public void add(int index, BleepBlorp item) {
-        // TODO
+        /** Node n stands for the node which you will add to its next */
+        Node n = sentinel;
+        while (index > 0 && n.next != sentinel) {
+            n = n.next;
+            index -= 1;
+        }
+        Node temp = new Node(item, n, n.next);
+        temp.next.prev = temp;
+        temp.prev.next = temp;
+        size += 1;
     }
 
     /** Remove the first instance of item from this list. */
     public void remove(BleepBlorp item) {
-        // TODO
+        Node n = sentinel;
+        while (n.item != item) {
+            n = n.next;
+        }
+        n.prev.next = n.next;
+        n.next.prev = n.prev;
+        size -= 1;
     }
 
     @Override
