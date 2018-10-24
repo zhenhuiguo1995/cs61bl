@@ -29,7 +29,11 @@ public class AList<Item> {
 
     /** Returns if the collection contains k. */
     public boolean contains(Item x) {
-        // TODO
+        for (Item a: items) {
+            if (a == x) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -46,16 +50,21 @@ public class AList<Item> {
     /** Adds x to the list at the specified index. */
     public void add(int index, Item x) {
         if (index < 0 || index > size) {
+            System.out.println("Index must be within 0 and the " + size + "of the array");
             return;
         } else if (size == items.length) {
             resize(size * 2);
         }
 
         // FIXME
-        for (int i = index + 1; i <= size; i += 1) {
-            items[i] = items[i - 1];
-        }
+        Item pre = items[index];
         items[index] = x;
+        for (int i = index + 1; i <= size; i += 1) {
+            Item temp = items[i];
+            items[i] = pre;
+            pre = temp;
+
+        }
         size += 1;
     }
 
@@ -79,6 +88,19 @@ public class AList<Item> {
 
     /** Removes the first instance of the item from this list. */
     public void remove(Item x) {
-        // TODO
+        int i = 0;
+        while (items[i] != x) {
+            i += 1;
+        }
+        if (i + 1 == size) {
+            removeLast();
+        } else {
+            while (i < size - 1) {
+                items[i] = items[i + 1];
+                i += 1;
+            }
+            items[i] = null;
+            size -= 1;
+        }
     }
 }
