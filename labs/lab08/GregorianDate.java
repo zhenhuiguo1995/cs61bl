@@ -17,6 +17,27 @@ public class GregorianDate extends Date {
         return precedingMonthDays + dayOfMonth;
     }
 
+    @Override
+    public Date nextDate() {
+        int year, month, dayOfMonth;
+        if (this.dayOfMonth + 1 > getMonthLength(this.month)) {
+            if (this.month + 1 > MONTH_LENGTHS.length) {
+                year = this.year + 1;
+                month = 1;
+                dayOfMonth = 1;
+            } else {
+                year = this.year;
+                month = this.month + 1;
+                dayOfMonth = 1;
+            }
+        } else {
+            year = this.year;
+            month = this.month;
+            dayOfMonth = this.dayOfMonth + 1;
+        }
+        return new GregorianDate(year, month, dayOfMonth);
+    }
+
     private static int getMonthLength(int m) {
         return MONTH_LENGTHS[m - 1];
     }
