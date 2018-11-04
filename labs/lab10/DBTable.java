@@ -1,9 +1,12 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import edu.princeton.cs.algs4.Whitelist;
+import org.omg.PortableServer.LIFESPAN_POLICY_ID;
+
+import java.io.IOError;
+import java.io.IOException;
+import java.util.*;
 import java.util.function.Function;
-import java.util.Objects;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class DBTable<T> {
     private List<T> entries;
@@ -47,8 +50,14 @@ public class DBTable<T> {
      * results of the getter. Non-destructive.
      */
     public <R extends Comparable<R>> List<T> getOrderedBy(Function<T, R> getter) {
-        // TODO
-        return null;
+        List<T> newList = new ArrayList<>(entries);
+        newList.sort(new Comparator<T>() {
+            @Override
+            public int compare(T t, T t1) {
+                return getter.apply(t).compareTo(getter.apply(t1));
+            }
+        });
+        return newList;
     }
 
     /**
@@ -56,8 +65,10 @@ public class DBTable<T> {
      * in the whitelist. Non-destructive.
      */
     public <R> List<T> getWhitelisted(Function<T, R> getter, Collection<R> whitelist) {
-        // TODO
-        return null;
+        List<T> newList =  entries.stream()
+                .filter(s -> whitelist.contains(getter.apply(s)))
+                .collect(Collectors.toList());
+        return newList;
     }
 
     /**
@@ -65,9 +76,15 @@ public class DBTable<T> {
      * getter. For example, getting a DBTable of usernames would look like:
      * DBTable<String> names = table.getSubtableOf(User::getUsername);
      */
-    public <R> DBTable<R> getSubtableOf(Function<T, R> getter) {
-        // TODO
-        return null;
+    public <R>DBTable<R> getSubtableOf(Function<T, R> getter) {
+        return new DBTable<R>(entries.stream()
+                            .map(s -> getter.apply(s))
+                            .collect(Collectors.toList()));
+//        List<R>  newList = entries.stream()
+//                .map(s -> getter.apply(s))
+//                .collect(Collectors.toList());
+//        DBTable newTable = new DBTable(newList);
+//        return newTable;
     }
 
     public static void main(String[] args) {
@@ -80,6 +97,13 @@ public class DBTable<T> {
                 );
         DBTable<User> t = new DBTable<>(users);
         List<User> l = t.getOrderedBy(User::getName);
+        DBTable<String> name = t.getSubtableOf(User::getName);
         l.forEach(System.out::println);
+        for (String temp: name.entries) {
+            System.out.println(temp);
+        }
+        List<Integer> friend = Arrays.asList(1);
+        List<User> id = t.getWhitelisted(User::getId, friend);
+        id.forEach(System.out::println);
     }
 }
