@@ -1,13 +1,29 @@
 package gitlet;
 
 import java.io.File;
+import java.io.Serializable;
 
 /*
     GitMethod class has all the functionality
     that a git systems is required to have
     @author: Alfred
  */
-public class GitMethod {
+public class GitMethod implements Serializable{
+    /**
+     * what attributes are needed in the gitMethod
+     */
+    /*
+    present working directory -> String folder
+    Staging directory: -> stageFolder
+    current head
+    HashTree<> : records the commit
+    log message
+    shaCode
+     */
+
+
+
+
     /*
      * Initializes a git system
      * If it already exists: prints out "A git version control
