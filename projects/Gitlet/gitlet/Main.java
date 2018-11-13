@@ -22,7 +22,7 @@ public class Main {
             System.out.println("Please enter a command");
             System.exit(0);
         } else{
-            String command = args[0];
+            GitMethod.checkPreviously();
             switch (args[0]){
                 case "init":
                     if (args.length == 1) {
@@ -73,7 +73,7 @@ public class Main {
                     break;
                 case "find":
                     if (args.length == 2) {
-                        GitMethod.find();
+                        GitMethod.find(args[1]);
                     } else {
                         System.out.println("Incorrect operands");
                     }
@@ -122,6 +122,7 @@ public class Main {
                     System.exit(0);
             }
         }
+        GitMethod.checkAfterWards();
     }
 
 }

@@ -45,8 +45,12 @@ public class Commit implements Serializable {
         //this.former = GitMethod;
         this.fileID = files;
         //String allStaff = ;
-        this.shaCode = Utils.sha1()
+        this.shaCode = Utils.sha1();
 
+    }
+
+    public String getFormer() {
+        return former;
     }
 
     public String getTimeStamp() {
@@ -56,7 +60,11 @@ public class Commit implements Serializable {
     }
 
     public String strChanging(HashMap file, String a, String b, String c) {
+        return "abc";
+    }
 
+    public HashMap<String, String> getFileID() {
+        return fileID;
     }
 
     public String getShaCode() {
@@ -69,5 +77,17 @@ public class Commit implements Serializable {
 
     public String getBranch() {
         return branch;
+    }
+
+    public void printlog() {
+        System.out.println("===");
+        System.out.println("Commit" + this.shaCode);
+        System.out.println(this.timeStamp);
+        System.out.println(this.description);
+        System.out.println();
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
